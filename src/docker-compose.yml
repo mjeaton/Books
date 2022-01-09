@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  books.api:
+    image: ${DOCKER_REGISTRY-}booksapi
+    build:
+      context: .
+      dockerfile: ./Books.API/Dockerfile
+    depends_on:
+      - seq
+      - rabbit 
+
+  books.processor:
+    image: ${DOCKER_REGISTRY-}booksprocessor
+    build:
+      context: .
+      dockerfile: ./Books.BookProcessor/Dockerfile
+    depends_on:
+      - seq
+      - rabbit 
+
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - 8088:15672
+      - 5672:5672
+
+  seq:
+    image: datalust/seq
+    ports:
+      - '5431:5431'
+    environment:
+      - ACCEPT_EULA=Y

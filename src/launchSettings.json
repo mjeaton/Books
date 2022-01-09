@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "composeLaunchAction": "None",
+      "composeLaunchServiceName": "books.console",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "books.console": "StartDebugging",
+        "seq": "StartWithoutDebugging"
+      }
+    }
+  }
+}
