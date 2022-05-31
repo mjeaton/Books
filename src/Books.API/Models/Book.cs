@@ -1,4 +1,4 @@
-﻿namespace Books.API;
+﻿namespace Books.API.Models;
 
 public class Book
 {
@@ -30,62 +30,3 @@ public class Book
     public Type type { get; set; }
     public int revision { get; set; }
 }
-
-public class Notes
-{
-    public string type { get; set; }
-    public string value { get; set; }
-}
-
-public class Created
-{
-    public string type { get; set; }
-    public DateTime value { get; set; }
-}
-
-public class Last_Modified
-{
-    public string type { get; set; }
-    public DateTime value { get; set; }
-}
-
-public class Type
-{
-    public string key { get; set; }
-}
-
-public class Table_Of_Contents
-{
-    public int level { get; set; }
-    public string label { get; set; }
-    public string title { get; set; }
-    public string pagenum { get; set; }
-}
-
-public class Link
-{
-    public string url { get; set; }
-    public string title { get; set; }
-}
-
-public class Language
-{
-    public string key { get; set; }
-}
-
-public class Work
-{
-    public string key { get; set; }
-}
-
-public class Author
-{
-    public string name { get; set; }
-    public string personal_name { get; set; }
-    public Last_Modified last_modified { get; set; }
-    public string key { get; set; }
-    public Type type { get; set; }
-    public int id { get; set; }
-    public int revision { get; set; }
-}
-
