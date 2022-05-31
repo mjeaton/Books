@@ -26,10 +26,10 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/books", async (string isbn) =>
 {
     Log.Information($"API received '{isbn}'.");
-    var apiHandler = new APIHandler();
 
     if (ISBN.TryParse(isbn, out var validisbn))
     {
+    	var apiHandler = new APIHandler();
         var (resultCode, json) = await apiHandler.GetBookByISBN(isbn);
         if((resultCode != System.Net.HttpStatusCode.OK) && (!string.IsNullOrEmpty(json)))
         {
@@ -51,9 +51,9 @@ app.MapGet("/books", async (string isbn) =>
         return Results.BadRequest("Bad ISBN.");
     }
 })
-.WithName("GetBooks")
-.Produces(200)
-.Produces(404)
-.Produces(400);
+    .WithName("GetBooks")
+    .Produces(200)
+    .Produces(404)
+    .Produces(400);
 
 app.Run();

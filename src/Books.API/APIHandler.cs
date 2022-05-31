@@ -1,36 +1,30 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 
-namespace Books.API
+namespace Books.API;
+
+public class APIHandler
 {
-    public class APIHandler
-    {
-        public async Task<(HttpStatusCode, string)> GetBookByISBN(string isbn)
-        {
-            return await GetContent($"isbn/{isbn}");
-        }
+	public Task<(HttpStatusCode, string)> GetBookByISBN(string isbn) => GetContent($"isbn/{isbn}");
 
-        private async Task<(HttpStatusCode, string)> GetContent(string content)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                var baseUri = new Uri("https://openlibrary.org/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json"));
+	private static async Task<(HttpStatusCode, string)> GetContent(string content)
+	{
+		using HttpClient client = new();
 
-                client.BaseAddress = baseUri;
+		var baseUri = new Uri("https://openlibrary.org/");
+		client.DefaultRequestHeaders.Accept.Clear();
+		client.DefaultRequestHeaders.Accept.Add(
+			new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var finalUrl = $"{content}.json";
+		client.BaseAddress = baseUri;
 
-                using HttpResponseMessage response = await client.GetAsync(finalUrl);
-                string output = "";
-                if(response.IsSuccessStatusCode)
-                {
-                    output = await response.Content.ReadAsStringAsync();
-                }
-                return (response.StatusCode, output);
-            }
-        }
-    }
+		using HttpResponseMessage response = await client.GetAsync((string?)$"{content}.json");
+		var output = "";
+		if (response.IsSuccessStatusCode)
+		{
+			output = await response.Content.ReadAsStringAsync();
+		}
+
+		return (response.StatusCode, output);
+	}
 }
