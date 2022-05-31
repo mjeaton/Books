@@ -9,6 +9,8 @@ services:
     depends_on:
       - seq
       - rabbit 
+    ports:
+      - 8080:80
 
   books.processor:
     image: ${DOCKER_REGISTRY-}booksprocessor
@@ -28,6 +30,7 @@ services:
   seq:
     image: datalust/seq
     ports:
-      - '5431:5431'
+      - 5431:5431
+      - 8089:80
     environment:
       - ACCEPT_EULA=Y

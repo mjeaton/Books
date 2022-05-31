@@ -3,7 +3,8 @@ using Serilog;
 using System.Text.Json;
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Seq(serverUrl: "http://host.docker.internal:5341")
+    .WriteTo
+    .Seq(serverUrl: "http://host.docker.internal:5341")
     .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
